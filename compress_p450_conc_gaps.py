@@ -9,14 +9,14 @@
         if (not values) or (conc_set_name not in values) or ('%INHIB1' not in values):
             return
 
-        set_string = values[conc_set_name]['unformattedValue']
-        set = set_string.split(';')
+        conc_set_string = values[conc_set_name]['unformattedValue']
+        conc_set = conc_set_string.split(';')
         included_set = values['INCLUDED_SET']['unformattedValue'].split(';')
 
         # Reproduce CONC_SET and INCLUDED_SET
         conc_set_values = ['']
         included_set_values = ['']
-        for conc, inc in zip(set, included_set):
+        for conc, inc in zip(conc_set, included_set):
             if conc != '':
                 conc_set_values.append(conc)
                 included_set_values.append(inc)
@@ -30,7 +30,7 @@
 
         # Get the headings and values and filter out any blank ones
         conc_values = [values.get('%INHIB{0}'.format(i)) for i in range(8)]
-        joined = zip(set[1:-1], conc_values)
+        joined = zip(conc_set[1:-1], conc_values)
         joined = filter(lambda x: x[0] != '', joined)
 
         # If we have 7 concentrations (including 0) then include a dummy
